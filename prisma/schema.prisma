@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Doctor {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+}
+
+model User {
+  id            Int     @id @default(autoincrement())
+  chat_id       String  @unique
+  name          String?
+  username      String?
+  queue_id      String?
+  queue_current Int?
+  doctor_id     String?
+  status        String?
+}
+
+model CacheQueue {
+  id            Int     @id @default(autoincrement())
+  queue_id      String?
+  queue_current Int?
+}
