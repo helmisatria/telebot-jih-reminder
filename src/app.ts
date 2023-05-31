@@ -80,14 +80,18 @@ ${"```\n/queue <nomor-dokter> <nomor-antrean-anda>\nContoh: /queue 12 143-24\n``
     return;
   }
 
-  await prisma.user.update({
-    where: { chat_id: String(chatId) },
-    data: {
-      doctor_id: String(foundDoctor.id),
-      queue_id: userQueueId,
-      queue_current: null,
-    },
-  });
+  await prisma.user
+    .update({
+      where: { chat_id: String(chatId) },
+      data: {
+        doctor_id: String(foundDoctor.id),
+        queue_id: userQueueId,
+        queue_current: null,
+      },
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 
   bot.sendMessage(
     chatId,
