@@ -139,10 +139,17 @@ export const getUserQueueInfo = async ({
   // Log the list of next patients
   // console.log(nextPatients);
 
-  await prisma.user.update({
-    where: { id: user.id },
-    data: { queue_current: myQueue },
-  });
+  await prisma.user
+    .update({
+      where: { id: user.id },
+      data: { queue_current: myQueue },
+    })
+    .then(() => {
+      console.log("User queue_current updated successfully");
+    })
+    .catch((e) => {
+      console.error("Error updating user queue_current");
+    });
 
   console.log("myQueue -->", myQueue);
   if (user.queue_current !== myQueue && myQueue > 0) {
