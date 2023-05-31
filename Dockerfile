@@ -2,6 +2,7 @@ FROM node:18
 
 WORKDIR /app
 
+COPY .env ./
 COPY . .
 
 ENV NODE_ENV=production
